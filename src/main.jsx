@@ -7,10 +7,14 @@ import App from "./App.jsx";
 import "./index.css";
 
 async function iniciarAplicacion() {
-  if (import.meta.env.DEV) {
-    const { worker } = await import("./mocks/browser");
-    await worker.start();
-  }
+  const { worker } = await import("./mocks/browser");
+
+  await worker.start({
+    serviceWorker: {
+      url: `${import.meta.env.BASE_URL}mockServiceWorker.js`
+    },
+    onUnhandledRequest: "bypass"
+  });
 
   ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>

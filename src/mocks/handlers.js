@@ -2,8 +2,10 @@
 import { graphql, http, HttpResponse } from "msw";
 
 export const handlers = [
-  http.get("/api/destinos", async () => {
-  const respuesta = await fetch("/data/destinos.json");
+  http.get("*/api/destinos", async () => {
+  const respuesta = await fetch(
+  `${import.meta.env.BASE_URL}data/destinos.json`
+);
   const destinos = await respuesta.json();
 
   return HttpResponse.json(destinos);

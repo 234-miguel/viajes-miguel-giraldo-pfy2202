@@ -1,12 +1,16 @@
 
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useParams, Link } from "react-router-dom";
+import { HashRouter, Routes, Route, useParams, Link, useNavigate } from "react-router-dom";
 import Destino from "./components/Destino";
 import DetalleViaje from "./components/DetalleViaje";
 import "./App.css";
 
+
 function ListaDestinos({ destinos }) {
+  const navigate = useNavigate();
+
   return (
+
     <>
       <h2>Destinos disponibles</h2>
 
@@ -18,8 +22,8 @@ function ListaDestinos({ destinos }) {
             pais={destino.pais}
             actividades={destino.actividades}
             onSeleccionar={() => {
-              window.location.href = `/destino/${destino.id}`;
-            }}
+               window.location.href = `${import.meta.env.BASE_URL}destino/${destino.id}`;
+              }}
           />
         ))}
       </div>
@@ -50,14 +54,14 @@ function App() {
   const [destinos, setDestinos] = useState([]);
 
   useEffect(() => {
-    fetch("/api/destinos")
+    fetch(`${import.meta.env.BASE_URL}api/destinos`)
       .then((respuesta) => respuesta.json())
       .then((datos) => setDestinos(datos))
       .catch((error) => console.error(error));
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="contenedor">
         <h1>Agencia de Viajes</h1>
         <p>Explora los mejores destinos turísticos.</p>
@@ -74,7 +78,7 @@ function App() {
           />
         </Routes>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

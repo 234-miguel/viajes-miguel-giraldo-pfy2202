@@ -1,16 +1,22 @@
 
 import { useState, useEffect } from "react";
-import { HashRouter, Routes, Route, useParams, Link, useNavigate } from "react-router-dom";
+import {
+  HashRouter,
+  Routes,
+  Route,
+  useParams,
+  Link,
+  useNavigate
+} from "react-router-dom";
+
 import Destino from "./components/Destino";
 import DetalleViaje from "./components/DetalleViaje";
 import "./App.css";
-
 
 function ListaDestinos({ destinos }) {
   const navigate = useNavigate();
 
   return (
-
     <>
       <h2>Destinos disponibles</h2>
 
@@ -21,9 +27,9 @@ function ListaDestinos({ destinos }) {
             nombre={destino.nombre}
             pais={destino.pais}
             actividades={destino.actividades}
-            onSeleccionar={() => {
-               window.location.href = `${import.meta.env.BASE_URL}destino/${destino.id}`;
-              }}
+            onSeleccionar={() =>
+              navigate(`/destino/${destino.id}`)
+            }
           />
         ))}
       </div>
@@ -55,7 +61,12 @@ function App() {
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}api/destinos`)
-      .then((respuesta) => respuesta.json())
+      .then((respuesta) => {
+        if (!respuesta.ok) {
+          throw new Error("Error al obtener destinos");
+        }
+        return respuesta.json();
+      })
       .then((datos) => setDestinos(datos))
       .catch((error) => console.error(error));
   }, []);

@@ -1,0 +1,21 @@
+
+[
+  {
+    "id": 1,
+    "nombre": "Santiago",
+    "pais": "Chile",
+    "actividades": "Montañas y gastronomía"
+  },
+  {
+    "id": 2,
+    "nombre": "Río de Janeiro",
+    "pais": "Brasil",
+    "actividades": "Playas y turismo"
+  },
+  {
+    "id": 3,
+    "nombre": "Buenos Aires",
+    "pais": "Argentina",
+    "actividades": "Cultura y gastronomía"
+  }
+]
